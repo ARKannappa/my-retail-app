@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn" name="my-retail-app" packages="" shutdownHook="disable">
+
+    <Properties>
+        <Property name="filePathVar">${logging.path}</Property>
+        <Property name="fileVar">${app.log.filename}</Property>
+    </Properties>
+
+    <DynamicThresholdFilter key="x-debug-log-enabled" onMatch="ACCEPT" onMismatch="NEUTRAL">
+        <KeyValuePair key="true" value="debug"/>
+    </DynamicThresholdFilter>
+
+    <Appenders>
+        <Console name="stdout" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd'T'HH:mm:ss,SSSZ} %highlight{%-5p}{FATAL=red blink, ERROR=red, WARN=yellow bold, INFO=green, DEBUG=green bold, TRACE=blue} %style{${sys:PID}}{magenta} [%15.15t] xRequestId=%X{xRequestId} %style{%-40.40C{1.}}{cyan} - %enc{%m}{CRLF}%n"/>
+        </Console>
+
+        <RollingFile name="file" fileName="${sys:logs.dir:-./}/${sys:app.log.filename:-application.log}" append="true"
+                     filePattern="${sys:logs.dir:-default./}/${sys:app.log.filename:-defaultapplication.log}.%i.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd'T'HH:mm:ss,SSSZ} level=%-5p xRId=%X{request-id} %c{1} %enc{%m}{CRLF}%n"/>
+            <Policies>
+                <SizeBasedTriggeringPolicy size="100MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="10"/>
+        </RollingFile>
+    </Appenders>
+
+    <Loggers>
+        <root level="${sys:log.level:-INFO}">
+            <AppenderRef ref="stdout" />
+            <AppenderRef ref="file" />
+        </root>
+    </Loggers>
+</Configuration>
