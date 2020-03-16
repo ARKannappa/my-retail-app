@@ -1,3 +1,5 @@
+
+
 package com.myretail.myretailapp;
 
 
@@ -79,7 +81,7 @@ public class MyRetailAppApplicationTests {
 		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
 
 		ResponseEntity<String> response = restTemplate.exchange(
-				createURLWithPort("/myretail/product/somesku"),
+				createURLWithPort("/myretail/product/11111"),
 				HttpMethod.GET, entity, String.class);
 
 		String expectedResponse = "{\n" +
@@ -87,7 +89,7 @@ public class MyRetailAppApplicationTests {
 				"    \"errors\": [\n" +
 				"        {\n" +
 				"            \"errorCode\": \"PRD-NOT-AVA\",\n" +
-				"            \"errorDescription\": \"Data error. Couldn't fulfill this request.com.myretail.myretailapp.exception.DataNotAvailableException: Product Info for somesku not available in system. \"\n" +
+				"            \"errorDescription\": \"Data error. Couldn't fulfill this request.com.myretail.myretailapp.exception.DataNotAvailableException: Product Info for 11111 not available in system. \"\n" +
 				"        }\n" +
 				"    ]\n" +
 				"}";
@@ -141,7 +143,7 @@ public class MyRetailAppApplicationTests {
 		headers.add("Authorization","Basic YWRtaW46cGFzc3dvcmQ=");
 		ProductPrice price = new ProductPrice(20,"USD");
 		ProductPriceInfo product = new ProductPriceInfo();
-		product.setSku("someSku");
+		product.setSku("11111");
 		product.setProductPrice(price);
 
 		HttpEntity<ProductPriceInfo> entity = new HttpEntity<ProductPriceInfo>(product, headers);
@@ -155,7 +157,7 @@ public class MyRetailAppApplicationTests {
 				"    \"errors\": [\n" +
 				"        {\n" +
 				"            \"errorCode\": \"PRD-NOT-AVA\",\n" +
-				"            \"errorDescription\": \"Data error. Couldn't fulfill this request.com.myretail.myretailapp.exception.DataNotAvailableException: Product Info for someSku not available in system. \"\n" +
+				"            \"errorDescription\": \"Data error. Couldn't fulfill this request.com.myretail.myretailapp.exception.DataNotAvailableException: Product Info for 11111 not available in system. \"\n" +
 				"        }\n" +
 				"    ]\n" +
 				"}";
